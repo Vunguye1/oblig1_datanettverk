@@ -11,11 +11,11 @@ def request_to_server(server_host, server_port, path):
         client_socket.connect((server_host,server_port))
                 # https://stackoverflow.com/questions/7334199/getaddrinfo-failed-what-does-that-mean
 
-        # input from client
+        # prepare request
         request = f"GET {path} HTTP/1.1\n\n"
 
-        # become a server socket
-        client_socket.send(request.encode()) # send request til server
+        # send request til server
+        client_socket.send(request.encode()) 
         response = ''
 
         while True:
