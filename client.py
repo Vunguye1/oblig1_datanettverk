@@ -2,7 +2,7 @@ from socket import *
 
 
 serverName = '127.0.0.1'
-serverPort = 5050 # use a nice high number (4 digits) if we r playing around
+serverPort = 2609 # use a nice high number (4 digits) if we r playing around
 
 # create an INET, STREAMing socket
 client_socket = socket(AF_INET, SOCK_STREAM)
