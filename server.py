@@ -8,7 +8,7 @@ print("Vu-server is ready to receive ur message")
 
 while True:
     # accept connections from outside
-    connection_Socket, connection_address = server_Socket.accept()
+    connection_Socket, addr = server_Socket.accept()
 
     message = connection_Socket.recv(1024).decode() # receive message from client
     capitalized_MSG = message.upper() # make it capitalized 
