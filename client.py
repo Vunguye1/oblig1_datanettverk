@@ -24,5 +24,5 @@ def request_to_server(server_host, server_port, path):
                         break
                 response += message_from_server
 
-        print("From Server: " + response) # print message from server to terminal
+        print("From Server: " + response) # print the response from server to terminal
         client_socket.close()
