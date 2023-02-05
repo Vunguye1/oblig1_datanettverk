@@ -26,8 +26,8 @@ while True:
 
     if Http_method == "GET":
         try:
-            with open(path[1:], 'r') as f:
-                response_from_server = 'HTTP/1.1 200 OK\n\n' + f.read() # get the contents from HTML-file
+            read = open(path[1:], 'r')
+            response_from_server = 'HTTP/1.1 200 OK\n\n' + read.read() # get the contents from HTML-file
         except FileNotFoundError:
             continue
 
