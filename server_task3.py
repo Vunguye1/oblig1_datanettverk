@@ -4,9 +4,16 @@ import _thread as thread
 
 # this function will handle each connect from client.
 # Parameter is connection from client
+
+
 def handle_each_request(connection):
     while True:
-        request = connection.recv(1024).decode()  # receive request from client/web browser.
+        try:
+            request = connection.recv(1024).decode()  # receive request from client/web browser.
+        except ConnectionAbortedError:  # handle when a connection is aborted. It means when client(s)
+            # close the browsers.
+            print("You have closed a connection")
+            break  # go out of the loop! Ready for another call
 
         # check if this is the request from web browser or our custom client
         if "GET" in request:  # request from web browser
