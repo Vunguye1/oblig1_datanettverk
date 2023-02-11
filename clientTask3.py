@@ -14,7 +14,7 @@ except:
     print("Can not connect")
     sys.exit()
 
-# As long as it is true
+# As long as the server is still connected
 while True:
     # Ask what file the user want to access. I intentionally stop the program from sending request continuously
     fil_name = input("File name? ")

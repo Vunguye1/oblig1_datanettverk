@@ -2,8 +2,9 @@ from socket import *
 import _thread as thread
 
 
-def handle_each_request(connection):  # this function will handle each connect from client
-
+# this function will handle each connect from client.
+# Parameter is connection from client
+def handle_each_request(connection):
     while True:
         request = connection.recv(1024).decode()  # receive request from client/web browser.
 
