@@ -2,8 +2,8 @@ from socket import *
 import _thread as thread
 
 
-def handle_each_request(connection):
-    response_from_server = ''
+def handle_each_request(connection):  # this function will handle each connect from client
+
     while True:
         request = connection.recv(1024).decode()  # receive request from client/web browser.
 
@@ -21,11 +21,11 @@ def handle_each_request(connection):
         except FileNotFoundError:  # If the file is not found
             response_from_server = 'HTTP/1.1 404 Not Found'
 
-        # over the connection
+        # stop connecting with server when users request "stop"
         if request == "stop":
             break
         connection.send(response_from_server.encode())  # send data back from server to client
-    connection.close()
+    connection.close()  # close connection
 
 
 def main():
@@ -43,9 +43,10 @@ def main():
         connection_Socket, addr = server_Socket.accept()  # accept connections from the outside.
         # Create a new socket for that connection on return
         # -> server can use connection_Socket to communicate with client/web browser
-        print(f"Server connected by the following address: {addr}")
-        thread.start_new_thread(handle_each_request, (connection_Socket,))
-    server_Socket.close()
+        print(f"Server connected by the following address: {addr}")  # Update addresses from differents clients
+        thread.start_new_thread(handle_each_request, (connection_Socket,))  # threading for handling multiple clients
+    # if there is no client, the server will close
+    server_Socket.close()  # close the server socket when there is no one
 
 
 if __name__ == '__main__':

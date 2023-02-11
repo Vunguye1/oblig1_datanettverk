@@ -1,8 +1,9 @@
 from socket import *
 import sys
 
-server_host = "127.0.0.1"  # first argument
-server_port = 2609  # second argument
+server_host = "127.0.0.1"
+server_port = 2609
+
 # create an INET, STREAMing socket
 client_socket = socket(AF_INET, SOCK_STREAM)
 
@@ -13,13 +14,13 @@ except:
     print("Can not connect")
     sys.exit()
 
-# prepare request
+# As long as it is true
 while True:
-    # send request til server
+    # Ask what file the user want to access
     fil_name = input("File name? ")
-    client_socket.send(fil_name.encode())
+    client_socket.send(fil_name.encode())  # send request til server
     message_from_server = client_socket.recv(1024)  # get the message from server
     print("From server: ", message_from_server.decode())  # print it out
     if message_from_server == "exit":
         break
-client_socket.close()
+client_socket.close()  # close the socket
