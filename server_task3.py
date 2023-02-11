@@ -15,6 +15,7 @@ def handle_each_request(connection):  # this function will handle each connect f
         else:  # request from client
             path = ("/" + request)  # Path to the file in system
 
+        # Handling exception in case the file is (not) found
         try:  # If the file is found
             read = open(path[1:], 'r')
             response_from_server = 'HTTP/1.1 200 OK\n\n' + read.read()  # get the contents from HTML-file
@@ -25,7 +26,7 @@ def handle_each_request(connection):  # this function will handle each connect f
         if request == "stop":
             break
         connection.send(response_from_server.encode())  # send data back from server to client
-    connection.close()  # close connection
+    connection.close()  # close connection with client
 
 
 def main():

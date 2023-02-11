@@ -16,7 +16,7 @@ except:
 
 # As long as it is true
 while True:
-    # Ask what file the user want to access
+    # Ask what file the user want to access. I intentionally stop the program from sending request continuously
     fil_name = input("File name? ")
     client_socket.send(fil_name.encode())  # send request til server
     message_from_server = client_socket.recv(1024)  # get the message from server
