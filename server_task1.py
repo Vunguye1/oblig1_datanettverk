@@ -17,6 +17,7 @@ connection_Socket, addr = server_Socket.accept()  # accept connections from the 
 request = connection_Socket.recv(1024).decode('utf-8')  # receive request from client/web browser.
 
 path = ""
+
 # check if this is the request from web browser or our custom client
 if "GET" in request:  # request from web browser
     request_lines = request.split("\n")  # there are many lines from web server request.
