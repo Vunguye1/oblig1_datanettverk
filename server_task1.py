@@ -28,11 +28,11 @@ else:  # request from client
 
 response_from_server = ''
 try:  # If the file is found
-    read = open(path[1:], 'r')
+    read = open(path[1:], 'r')  # Read the file
     response_from_server = 'HTTP/1.1 200 OK\n\n' + read.read()  # get the contents from HTML-file
 except FileNotFoundError:  # If the file is not found
     response_from_server = 'HTTP/1.1 404 Not Found'
-    pass
+    pass  # pass forwards
 
 connection_Socket.send(response_from_server.encode())  # send data back from server to client over the connection
 
