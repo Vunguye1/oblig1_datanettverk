@@ -3,9 +3,8 @@ import _thread as thread
 
 
 def handle_each_request(connection):
+    response_from_server = ''
     while True:
-        path = ""
-        response_from_server = ''
         request = connection.recv(1024).decode()  # receive request from client/web browser.
 
         # check if this is the request from web browser or our custom client
@@ -15,30 +14,39 @@ def handle_each_request(connection):
             path = request_line[1]  # get the path
         else:  # request from client
             path = ("/" + request)  # Path to the file in system
+
         try:  # If the file is found
             read = open(path[1:], 'r')
             response_from_server = 'HTTP/1.1 200 OK\n\n' + read.read()  # get the contents from HTML-file
         except FileNotFoundError:  # If the file is not found
             response_from_server = 'HTTP/1.1 404 Not Found'
-        connection.send(response_from_server.encode())  # send data back from server to client
+
         # over the connection
+        if request == "stop":
+            break
+        connection.send(response_from_server.encode())  # send data back from server to client
     connection.close()
 
 
-# define which client you will connect to
-server_Port = 2609
-server_Host = 'localhost'
+def main():
+    # define which client you will connect to
+    server_Port = 2609
+    server_Host = 'localhost'
 
-server_Socket = socket(AF_INET, SOCK_STREAM)  # create a socket
-server_Socket.bind((server_Host, server_Port))  # bind the address of connection from client to the socket
-server_Socket.listen(1)  # activate listening on the socket
+    server_Socket = socket(AF_INET, SOCK_STREAM)  # create a socket
+    server_Socket.bind((server_Host, server_Port))  # bind the address of connection from client to the socket
+    server_Socket.listen(1)  # activate listening on the socket
 
-print("Vu-server is ready to receive ur message")
+    print("Vu-server is ready to receive ur message")
 
-while True:
-    connection_Socket, addr = server_Socket.accept()  # accept connections from the outside.
-    # Create a new socket for that connection on return
-    # -> server can use connection_Socket to communicate with client/web browser
-    connection_Socket.send(f"Server connected by the following address: {addr}".encode())
-    thread.start_new_thread(handle_each_request, (connection_Socket,))
-server_Socket.close()
+    while True:
+        connection_Socket, addr = server_Socket.accept()  # accept connections from the outside.
+        # Create a new socket for that connection on return
+        # -> server can use connection_Socket to communicate with client/web browser
+        print(f"Server connected by the following address: {addr}")
+        thread.start_new_thread(handle_each_request, (connection_Socket,))
+    server_Socket.close()
+
+
+if __name__ == '__main__':
+    main()

@@ -25,7 +25,9 @@ def request_to_server(host, port, fil_name):  # function with 3 arguments
 
 
 if __name__ == '__main__':
+    """
     server_host = sys.argv[1]  # first argument
     server_port = int(sys.argv[2])  # second argument
-    filename = sys.argv[3]  # third argument
-    request_to_server(server_host, server_port, filename)
+    filename = sys.argv[3]  # third argument"""
+
+    request_to_server("127.0.0.1", 2609, input("Write in filename: "))
