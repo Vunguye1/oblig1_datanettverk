@@ -1,30 +1,25 @@
 from socket import *
+import sys
 
 
-def request_to_server(server_host, server_port, path):
+def request_to_server(host, port, fil_name):  # function with 3 arguments
     # create an INET, STREAMing socket
     client_socket = socket(AF_INET, SOCK_STREAM)
 
     # connect to the server
-    client_socket.connect((server_host, server_port))
+    client_socket.connect((host, port))
 
     # prepare request
-    request = f"GET {path} HTTP/1.1\n\n"
 
     # send request til server
-    client_socket.send(request.encode())
-    response = ''
-
-    while True:
-        message_from_server = client_socket.recv(1024)  # get back and read data from server
-        if not message_from_server:
-            break
-        response += message_from_server  # add data from server to our message-variable
-
-    print("From Server: " + response)  # print the response from server to terminal
-
-    # close the socket
+    client_socket.send(fil_name.encode())
+    message_from_server = client_socket.recv(1024)  # get the message from server
+    print("From server: ", message_from_server.decode())  # print it out
     client_socket.close()
 
-# viet funksjon kall på The following is an input command format to run the client.
-# client.py server host server port filename
+
+if __name__ == '__main__':
+    server_host = sys.argv[1]  # first argument
+    server_port = int(sys.argv[2])  # second argument
+    filename = sys.argv[3]  # third argument
+    request_to_server(server_host, server_port, filename)
